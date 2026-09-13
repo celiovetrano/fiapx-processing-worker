@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: fiapx-processing-worker
+
+server:
+  port: 8083
+
+fiapx:
+  s3:
+    bucket: ${S3_BUCKET:fiapx-videos}
+  sqs:
+    processing-queue: ${SQS_PROCESSING_QUEUE:video-processing-queue}
+  sns:
+    events-topic: ${SNS_EVENTS_TOPIC:video-events}
+  ffmpeg:
+    binary: ${FFMPEG_BINARY:ffmpeg}
+    timeout-seconds: ${FFMPEG_TIMEOUT_SECONDS:600}
+  work-dir: ${WORK_DIR:/tmp/fiapx}
+
+spring.cloud.aws:
+  region:
+    static: ${AWS_REGION:us-east-1}
+  endpoint: ${AWS_ENDPOINT:}
+  s3:
+    # true no LocalStack: sem isso o SDK monta "fiapx-videos.localstack:4566", host
+    # que não resolve. Na AWS real fica false (virtual-hosted style).
+    path-style-access-enabled: ${S3_PATH_STYLE:false}
+  credentials:
+    access-key: ${AWS_ACCESS_KEY_ID:test}
+    secret-key: ${AWS_SECRET_ACCESS_KEY:test}
+  sqs:
+    listener:
+      max-concurrent-messages: 2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
