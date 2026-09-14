@@ -20,6 +20,16 @@
         <!-- 1.21.4+: versões anteriores usam uma API do Docker recusada pelo Engine 29 -->
         <testcontainers.version>1.21.4</testcontainers.version>
         <spring-cloud-aws.version>3.2.1</spring-cloud-aws.version>
+
+        <!-- Versões corrigidas para o Trivy; o Boot 3.3.5 gerencia versões com CVEs;
+             revisar ao atualizar o Boot. Mesma linha principal em todos os casos
+             (Jackson 2.x, Tomcat 10.1.x, Netty 4.1.x, Spring Framework 6.1.x,
+             Micrometer 1.x). -->
+        <jackson-bom.version>2.18.8</jackson-bom.version>
+        <tomcat.version>10.1.59</tomcat.version>
+        <netty.version>4.1.138.Final</netty.version>
+        <spring-framework.version>6.1.21</spring-framework.version>
+        <micrometer.version>1.15.12</micrometer.version>
     </properties>
 
     <dependencyManagement>

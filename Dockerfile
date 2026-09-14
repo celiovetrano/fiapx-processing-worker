@@ -15,6 +15,8 @@ COPY fiapx-processing-worker/src /workspace/app/src
 RUN mvn -B -q package -DskipTests
 
 FROM eclipse-temurin:21-jre-alpine
+# Traz os patches de seguranca do Alpine (libcrypto3/libssl3/openssl, libexpat) para o Trivy.
+RUN apk upgrade --no-cache
 RUN apk add --no-cache ffmpeg \
  && addgroup -S fiapx && adduser -S fiapx -G fiapx \
  && mkdir -p /tmp/fiapx && chown fiapx:fiapx /tmp/fiapx
