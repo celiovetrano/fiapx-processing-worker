@@ -1,0 +1,15 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ci:
+    uses: celiovetrano/fiapx-infra/.github/workflows/maven-service.yml@main
+    with:
+      service: fiapx-processing-worker
+      needs-contracts: true
+      needs-ffmpeg: true
+      docker-context: services
