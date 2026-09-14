@@ -27,8 +27,9 @@ spring.cloud.aws:
     # que não resolve. Na AWS real fica false (virtual-hosted style).
     path-style-access-enabled: ${S3_PATH_STYLE:false}
   credentials:
-    access-key: ${AWS_ACCESS_KEY_ID:test}
-    secret-key: ${AWS_SECRET_ACCESS_KEY:test}
+    # Vazio = cadeia padrão do SDK (IRSA no EKS). No Compose vêm do ambiente.
+    access-key: ${AWS_ACCESS_KEY_ID:}
+    secret-key: ${AWS_SECRET_ACCESS_KEY:}
   sqs:
     listener:
       # Cada réplica só retira da fila o que consegue processar: o resto fica visível
